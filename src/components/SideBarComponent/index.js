@@ -1,11 +1,14 @@
-import React from "react";
-
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import * as PostActions from "../../store/actions/postActions";
 
-const SideBarComponent = ({ posts, toggleActivePost }) => {
+const SideBarComponent = ({ posts, toggleActivePost, fetchPosts }) => {
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
+
   return (
     <aside>
       {posts.map(post => (
