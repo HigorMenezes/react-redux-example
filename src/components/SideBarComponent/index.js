@@ -4,12 +4,14 @@ import { bindActionCreators } from "redux";
 
 import * as PostActions from "../../store/actions/postActions";
 
-const SideBarComponent = ({ posts, toggleActivePost, fetchPosts }) => {
+const SideBarComponent = ({ posts, loading, toggleActivePost, fetchPosts }) => {
   useEffect(() => {
     fetchPosts();
   }, [fetchPosts]);
 
-  return (
+  return loading ? (
+    "loading"
+  ) : (
     <aside>
       {posts.map(post => (
         <div key={post.id}>
@@ -22,7 +24,8 @@ const SideBarComponent = ({ posts, toggleActivePost, fetchPosts }) => {
 };
 
 const mapStateToProps = state => ({
-  posts: state.postReducer.posts
+  posts: state.postReducer.posts,
+  loading: state.postReducer.loading
 });
 
 const mapDispatchToProps = dispatch =>

@@ -3,14 +3,19 @@ import axios from "axios";
 
 import * as PostAction from "../actions/postActions";
 
-function* fetchPosts() {
-  const { data: posts } = yield axios.get(
-    "https://jsonplaceholder.typicode.com/posts"
+function* fetchPostsSaga() {
+  const timeout = new Promise((resolve, rejected) =>
+    setTimeout(
+      () => resolve(axios.get("https://jsonplaceholder.typicode.com/posts")),
+      2000
+    )
   );
+
+  const { data: posts } = yield timeout;
 
   yield put(PostAction.setPosts(posts));
 }
 
 export function* postsWatcher() {
-  yield takeLatest("FETCH_POSTS", fetchPosts);
+  yield takeLatest("FETCH_POSTS", fetchPostsSaga);
 }

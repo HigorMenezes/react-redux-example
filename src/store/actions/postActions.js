@@ -8,12 +8,14 @@ export function toggleActivePost(activePostId) {
 export function setPosts(posts) {
   return {
     type: "SET_POSTS",
-    posts
+    posts,
+    loading: false
   };
 }
 
 export function fetchPosts() {
   return {
-    type: "FETCH_POSTS"
+    type: "FETCH_POSTS",
+    loading: true
   };
 }
